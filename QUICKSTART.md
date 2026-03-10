@@ -7,8 +7,8 @@
 # 1. Get API key from: https://console.groq.com/
 # 2. Create .env file in backend/:
 echo "GROQ_API_KEY=your_api_key_here" > backend/.env
-echo "MONGODB_URI=mongodb://localhost:27017/devops_interview_ai" >> backend/.env
-echo "MONGODB_DB_NAME=devops_interview_ai" >> backend/.env
+echo "MONGODB_URI=mongodb://localhost:27017/ops_mentor_ai" >> backend/.env
+echo "MONGODB_DB_NAME=ops_mentor_ai" >> backend/.env
 ```
 
 ### 2. Start the Application (Docker)

@@ -224,8 +224,8 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(
-    title="DevOps AI Tutor",
-    description="AI-powered DevOps and interview practice system using AI",
+    title="Ops Mentor AI",
+    description="AI-powered cloud, DevOps, and interview practice platform",
     version="1.0.0",
     lifespan=lifespan
 )

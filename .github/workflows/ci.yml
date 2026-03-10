@@ -64,7 +64,7 @@ jobs:
           context: .
           file: backend/Dockerfile
           push: false
-          tags: devops-interview-ai-backend:ci
+          tags: ops-mentor-ai-backend:ci
 
       - name: Build frontend image
         uses: docker/build-push-action@v6
@@ -72,4 +72,4 @@ jobs:
           context: .
           file: frontend/Dockerfile
           push: false
-          tags: devops-interview-ai-frontend:ci
+          tags: ops-mentor-ai-frontend:ci

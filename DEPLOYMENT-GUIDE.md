@@ -77,7 +77,7 @@ JWT_SECRET_KEY=your_strong_jwt_secret
 JWT_ALGORITHM=HS256
 JWT_ACCESS_TOKEN_EXPIRE_MINUTES=1440
 MONGODB_URI=mongodb+srv://user:pass@host/db
-MONGODB_DB_NAME=devops_interview_ai
+MONGODB_DB_NAME=ops_mentor_ai
 FRONTEND_URL=https://yourdomain.com
 ALLOWED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
 ```
@@ -141,19 +141,19 @@ curl http://localhost:8000/api/health
 ### Local Development (MongoDB)
 ```bash
 # Check MongoDB connection
-mongosh "mongodb://localhost:27017/devops_interview_ai"
+mongosh "mongodb://localhost:27017/ops_mentor_ai"
 
 # Reset database (development only)
-mongosh --eval "use devops_interview_ai; db.dropDatabase()"
+mongosh --eval "use ops_mentor_ai; db.dropDatabase()"
 ```
 
 ### Production (MongoDB)
 ```bash
 # Backup
-mongodump --uri "$MONGODB_URI" --db devops_interview_ai
+mongodump --uri "$MONGODB_URI" --db ops_mentor_ai
 
 # Restore
-mongorestore --uri "$MONGODB_URI" --db devops_interview_ai dump/devops_interview_ai
+mongorestore --uri "$MONGODB_URI" --db ops_mentor_ai dump/ops_mentor_ai
 ```
 
 ## 🚀 Performance Optimization
@@ -261,7 +261,7 @@ python -c "from services.async_auth_service import async_auth_service; print('Au
 
 ## 🚀 Ready for Production!
 
-Your DevOps AI Tutor platform is now **production-ready** with:
+Your Ops Mentor AI platform is now **production-ready** with:
 - Secure user authentication
 - Personalized learning journeys  
 - Progress tracking & analytics

@@ -1,4 +1,4 @@
-# DevOps AI Tutor - Production Learning Platform
+# Ops Mentor AI - Production Learning Platform
 
 A comprehensive AI-powered learning platform for Cloud Engineering and DevOps careers. Features personalized learning journeys, user authentication, progress tracking, and AI interview practice.
 
@@ -55,8 +55,8 @@ echo "GROQ_API_KEY=your_groq_api_key_here" > .env
 echo "JWT_SECRET_KEY=your_jwt_secret_key_here" >> .env
 echo "JWT_ALGORITHM=HS256" >> .env
 echo "JWT_ACCESS_TOKEN_EXPIRE_MINUTES=1440" >> .env
-echo "MONGODB_URI=mongodb://localhost:27017/devops_interview_ai" >> .env
-echo "MONGODB_DB_NAME=devops_interview_ai" >> .env
+echo "MONGODB_URI=mongodb://localhost:27017/ops_mentor_ai" >> .env
+echo "MONGODB_DB_NAME=ops_mentor_ai" >> .env
 ```
 
 **Generate JWT Secret Key:**
@@ -106,6 +106,12 @@ For full details and expected output, see `QUICKSTART.md` under **Interviewer-v2
 & "C:\Users\bonito\Documents\BoniAI\.venv\Scripts\python.exe" -m pytest .\backend\tests\test_auth_unit.py -q
 & "C:\Users\bonito\Documents\BoniAI\.venv\Scripts\python.exe" -m pytest .\backend\tests\test_auth_integration.py -q
 ```
+
+## Deployment Runbooks
+
+- General deployment notes: `DEPLOYMENT-GUIDE.md`
+- Contabo VPS Docker runbook: `CONTABO-HOSTING.md`
+- Authentication implementation roadmap: `AUTHENTICATION-TASKS.md`
 
 ### Manual Setup (No Docker)
 

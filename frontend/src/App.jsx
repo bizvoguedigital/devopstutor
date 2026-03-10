@@ -15,8 +15,8 @@ import { apiService } from './services/api';
 import { useInterviewStore } from './store/interviewStore';
 
 function App() {
-  const sessionSummaryStorageKey = 'devopsai:sessionSummary';
-  const sessionStorageKey = 'devopsai:activeSession';
+  const sessionSummaryStorageKey = 'opsmentorai:sessionSummary';
+  const sessionStorageKey = 'opsmentorai:activeSession';
   const [sessionSummary, setSessionSummary] = useState(null);
   const [healthStatus, setHealthStatus] = useState(null);
   const [healthError, setHealthError] = useState(null);
@@ -330,11 +330,11 @@ function App() {
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="flex items-center gap-4">
                 <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                  <span className="text-white font-bold">D</span>
+                  <span className="text-white font-bold">O</span>
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-[0.35em] text-slate-400">DevOps Learning Hub</p>
-                  <h1 className="text-2xl sm:text-3xl font-semibold text-white">AI Study Workspace</h1>
+                  <p className="text-xs uppercase tracking-[0.35em] text-slate-400">Ops Mentor AI</p>
+                  <h1 className="text-2xl sm:text-3xl font-semibold text-white">Cloud & DevOps Mentor Workspace</h1>
                 </div>
               </div>
 
@@ -559,7 +559,7 @@ function App() {
           <div className="rounded-3xl border border-white/10 px-4 py-6 sm:px-6 sm:py-8">
             <div className="md:hidden flex flex-col gap-4">
               <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-400">
-                <span>DevOps Learning Hub</span>
+                <span>Ops Mentor AI</span>
               </div>
               <p className="text-sm text-slate-300">
                 AI study platform for interviews, journeys, and certifications.
@@ -582,7 +582,7 @@ function App() {
             </div>
             <div className="hidden md:flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="max-w-xs">
-                <h3 className="text-lg font-semibold text-white">DevOps Learning Hub</h3>
+                <h3 className="text-lg font-semibold text-white">Ops Mentor AI</h3>
                 <p className="text-sm text-slate-400">AI study platform for interview prep and career growth.</p>
               </div>
               <div className="flex flex-nowrap gap-2 text-xs text-slate-300">

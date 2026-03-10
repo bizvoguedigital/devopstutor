@@ -3,7 +3,7 @@ import { FaTrophy, FaCheckCircle, FaExclamationCircle, FaBook } from 'react-icon
 import { apiService } from '../services/api';
 
 const ARTIFACT_VIEW_PREFS_VERSION = 'v1';
-const ARTIFACT_VIEW_PREFS_STORAGE_PREFIX = `devopsai:iv2-artifacts-view:${ARTIFACT_VIEW_PREFS_VERSION}`;
+const ARTIFACT_VIEW_PREFS_STORAGE_PREFIX = `opsmentorai:iv2-artifacts-view:${ARTIFACT_VIEW_PREFS_VERSION}`;
 const DEFAULT_ARTIFACT_VIEW_PREFS = {
   statusFilter: '',
   readinessFilter: '',

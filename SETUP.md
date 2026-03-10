@@ -1,4 +1,4 @@
-# DevOps AI Tutor - Setup Guide
+# Ops Mentor AI - Setup Guide
 
 This guide will walk you through setting up your cloud-powered DevOps interview practice system.
 
@@ -59,7 +59,7 @@ Groq provides lightning-fast LLM inference in the cloud.
 3. **Generate API Key**: 
    - Click on "API Keys" in the sidebar
    - Click "Create API Key"
-   - Give it a name like "DevOps AI Tutor"
+   - Give it a name like "Ops Mentor AI"
    - Copy the generated key (starts with `gsk_`)
 
 ### Setup Environment Variables
@@ -72,13 +72,13 @@ cd backend
 
 # Create .env file (Windows)
 echo "GROQ_API_KEY=your_actual_api_key_here" > .env
-echo "MONGODB_URI=mongodb://localhost:27017/devops_interview_ai" >> .env
-echo "MONGODB_DB_NAME=devops_interview_ai" >> .env
+echo "MONGODB_URI=mongodb://localhost:27017/ops_mentor_ai" >> .env
+echo "MONGODB_DB_NAME=ops_mentor_ai" >> .env
 
 # Create .env file (Linux/macOS)
 echo "GROQ_API_KEY=your_actual_api_key_here" > .env
-echo "MONGODB_URI=mongodb://localhost:27017/devops_interview_ai" >> .env
-echo "MONGODB_DB_NAME=devops_interview_ai" >> .env
+echo "MONGODB_URI=mongodb://localhost:27017/ops_mentor_ai" >> .env
+echo "MONGODB_DB_NAME=ops_mentor_ai" >> .env
 ```
 
 **Important**: Replace `your_actual_api_key_here` with your real Groq API key.
@@ -91,12 +91,12 @@ If you haven't already, navigate to the project directory:
 
 **Windows:**
 ```bash
-cd Documents\BoniAI\devops-interview-ai
+cd Documents\BoniAI\ops-mentor-ai
 ```
 
 **Linux/Ubuntu:**
 ```bash
-cd ~/Documents/BoniAI/devops-interview-ai
+cd ~/Documents/BoniAI/ops-mentor-ai
 # Or wherever you extracted/cloned the project
 ```
 
@@ -185,7 +185,7 @@ Open a **NEW** terminal/command prompt window.
 ### 4.1 Navigate to Frontend Folder
 
 ```bash
-cd Documents\BoniAI\devops-interview-ai\frontend
+cd Documents\BoniAI\ops-mentor-ai\frontend
 ```
 
 ### 4.2 Install Node Dependencies
@@ -417,7 +417,7 @@ npm update
 - **Whisper Models:** ~1-3GB (downloaded automatically)
 - **Application Data:** <100MB (grows with interview sessions)
 
-To reset your interview history, drop the `devops_interview_ai` database in MongoDB.
+To reset your interview history, drop the `ops_mentor_ai` database in MongoDB.
 
 **Note:** Groq handles all model storage in the cloud, so you don't need to worry about local disk space for AI models.
 

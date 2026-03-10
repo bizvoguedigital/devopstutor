@@ -358,7 +358,7 @@ const CareerJourneyScreen = ({ onBack, user }) => {
                 <FaRoute className="text-white text-xl" />
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">DevOps Learning Hub</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Ops Mentor AI</p>
                 <h1 className="text-2xl sm:text-3xl font-semibold text-white">Career Journey Studio</h1>
               </div>
             </div>
@@ -1059,7 +1059,7 @@ const CareerJourneyScreen = ({ onBack, user }) => {
                 <FaRoute className="text-cyan-300 text-lg" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white">DevOps Learning Hub</h3>
+                <h3 className="text-lg font-semibold text-white">Ops Mentor AI</h3>
                 <p className="text-sm text-slate-400">Career Journey mode optimized for mobile webview.</p>
               </div>
             </div>

@@ -1,9 +1,9 @@
-# DevOps AI Tutor - Production Architecture Overview
+# Ops Mentor AI - Production Architecture Overview
 
 ## Project Structure
 
 ```
-devops-interview-ai/
+ops-mentor-ai/
 ├── docker-compose.yml          # Docker compose stack
 ├── .dockerignore               # Docker build exclusions
 ├── backend/                    # Python FastAPI backend

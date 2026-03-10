@@ -82,15 +82,22 @@ class AsyncAuthService:
         )
 
     def verify_token(self, token: str, expected_type: str = "access") -> Optional[dict]:
-        try:
-            payload = jwt.decode(
-                token,
-                settings.JWT_SECRET_KEY,
-                algorithms=[ALGORITHM],
-                audience=settings.JWT_AUDIENCE,
-                issuer=settings.JWT_ISSUER,
-            )
-        except JWTError:
+        jwt_keys = [settings.JWT_SECRET_KEY, *settings.jwt_previous_secret_keys]
+        payload = None
+        for jwt_key in jwt_keys:
+            try:
+                payload = jwt.decode(
+                    token,
+                    jwt_key,
+                    algorithms=[ALGORITHM],
+                    audience=settings.JWT_AUDIENCE,
+                    issuer=settings.JWT_ISSUER,
+                )
+                break
+            except JWTError:
+                continue
+
+        if payload is None:
             return None
 
         if payload.get("type") != expected_type:
