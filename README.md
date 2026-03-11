@@ -102,6 +102,16 @@ For full details and expected output, see `QUICKSTART.md` under **Interviewer-v2
 
 ### 6. Run Pre-Push Validation (Recommended)
 
+Enable automatic pre-push checks once per clone:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-hooks.ps1
+```
+
+```bash
+bash ./scripts/install-hooks.sh
+```
+
 Run the project pre-push script (backend tests + frontend production build):
 
 ```powershell

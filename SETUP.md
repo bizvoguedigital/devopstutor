@@ -220,6 +220,16 @@ You should see output like:
 
 ### Pre-Push Validation (Recommended)
 
+Enable automatic pre-push checks once (per clone):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-hooks.ps1
+```
+
+```bash
+bash ./scripts/install-hooks.sh
+```
+
 Before pushing to `main`, run the standard validation script from the repository root:
 
 ```powershell

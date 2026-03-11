@@ -13,7 +13,7 @@ Push-Location $repoRoot
 try {
     if (-not $SkipBackendTests) {
         Write-Host "[prepush] Running backend test suite in Docker..." -ForegroundColor Yellow
-        docker compose exec backend pytest -q
+        docker compose exec -T backend pytest -q
         Write-Host "[prepush] Backend tests passed." -ForegroundColor Green
     }
     else {

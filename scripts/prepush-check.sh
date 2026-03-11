@@ -29,7 +29,7 @@ echo "[prepush] Starting pre-push validation..."
 
 if [ "$SKIP_BACKEND_TESTS" = false ]; then
   echo "[prepush] Running backend test suite in Docker..."
-  docker compose exec backend pytest -q
+  docker compose exec -T backend pytest -q
   echo "[prepush] Backend tests passed."
 else
   echo "[prepush] Skipping backend tests."

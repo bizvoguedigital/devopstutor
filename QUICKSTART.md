@@ -91,6 +91,16 @@ This script validates:
 
 ### Pre-Push Validation (Recommended)
 
+Enable the automatic Git pre-push hook (one-time setup per clone):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-hooks.ps1
+```
+
+```bash
+bash ./scripts/install-hooks.sh
+```
+
 Run all required checks before pushing:
 
 ```powershell
