@@ -17,6 +17,7 @@ bcrypt==3.2.2  # Pin to compatible version with passlib
 python-jose[cryptography]==3.3.0
 python-dateutil==2.8.2
 livekit-api==0.8.2
+setuptools==75.8.0
 
 # Testing dependencies
 pytest==7.4.3

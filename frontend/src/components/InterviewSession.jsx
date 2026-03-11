@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaMicrophone, FaStop, FaPaperPlane, FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
+import { Room } from 'livekit-client';
 import { apiService } from '../services/api';
 import { useInterviewStore } from '../store/interviewStore';
 
@@ -59,6 +60,12 @@ export default function InterviewSession({ onComplete }) {
   const hasAutoCompletedRef = useRef(false);
   const [runStartCountdown, setRunStartCountdown] = useState(null);
   const hasStartedRunVoiceRef = useRef(false);
+  const [voiceRuntimeStatus, setVoiceRuntimeStatus] = useState(null);
+  const [isVoiceRuntimeLoading, setIsVoiceRuntimeLoading] = useState(false);
+  const [isLivekitConnecting, setIsLivekitConnecting] = useState(false);
+  const [livekitConnected, setLivekitConnected] = useState(false);
+  const [livekitError, setLivekitError] = useState('');
+  const livekitRoomRef = useRef(null);
   const isInterviewRunMode = Boolean(session?.strict_mode) && session?.interview_experience_mode === 'interview_run';
   const isCountdownActive = Number.isFinite(runStartCountdown) && runStartCountdown >= 0;
 
@@ -135,6 +142,22 @@ export default function InterviewSession({ onComplete }) {
     };
 
     fetchTts();
+  }, []);
+
+  useEffect(() => {
+    const fetchVoiceRuntimeStatus = async () => {
+      setIsVoiceRuntimeLoading(true);
+      try {
+        const status = await apiService.getVoiceRuntimeStatus();
+        setVoiceRuntimeStatus(status || null);
+      } catch (err) {
+        setVoiceRuntimeStatus(null);
+      } finally {
+        setIsVoiceRuntimeLoading(false);
+      }
+    };
+
+    fetchVoiceRuntimeStatus();
   }, []);
 
   useEffect(() => {
@@ -220,6 +243,15 @@ export default function InterviewSession({ onComplete }) {
   }, []);
 
   useEffect(() => {
+    return () => {
+      if (livekitRoomRef.current) {
+        livekitRoomRef.current.disconnect();
+        livekitRoomRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     if (ttsMode === 'api' && !ttsBackendAvailable) {
       setTtsMode('browser');
     }
@@ -248,6 +280,49 @@ export default function InterviewSession({ onComplete }) {
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const connectLivekitRoom = async () => {
+    if (!session?.session_id || isLivekitConnecting || livekitConnected) return;
+
+    setLivekitError('');
+    setIsLivekitConnecting(true);
+
+    try {
+      const tokenResponse = await apiService.createLivekitVoiceToken(session.session_id);
+      const room = new Room({
+        adaptiveStream: true,
+        dynacast: true,
+      });
+
+      room.on('disconnected', () => {
+        setLivekitConnected(false);
+      });
+
+      await room.connect(tokenResponse.livekit_url, tokenResponse.token);
+      livekitRoomRef.current = room;
+      setLivekitConnected(true);
+    } catch (err) {
+      const detail = err?.response?.data?.detail || 'Failed to connect LiveKit room.';
+      setLivekitError(String(detail));
+      setLivekitConnected(false);
+      if (livekitRoomRef.current) {
+        livekitRoomRef.current.disconnect();
+        livekitRoomRef.current = null;
+      }
+    } finally {
+      setIsLivekitConnecting(false);
+    }
+  };
+
+  const disconnectLivekitRoom = () => {
+    if (!livekitRoomRef.current) {
+      setLivekitConnected(false);
+      return;
+    }
+    livekitRoomRef.current.disconnect();
+    livekitRoomRef.current = null;
+    setLivekitConnected(false);
   };
 
   const formatDuration = (seconds) => {
@@ -780,6 +855,50 @@ export default function InterviewSession({ onComplete }) {
             {ttsNotice && (
               <div className="mb-4 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3">
                 <p className="text-xs text-amber-200">{ttsNotice}</p>
+              </div>
+            )}
+
+            {(voiceRuntimeStatus?.enabled || isVoiceRuntimeLoading) && (
+              <div className="mb-4 rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-3">
+                <div className="flex flex-wrap items-center gap-2 mb-2">
+                  <p className="text-xs text-cyan-100">
+                    Live Voice Room (beta): {livekitConnected ? 'Connected' : 'Disconnected'}
+                  </p>
+                  {voiceRuntimeStatus?.configured === false && (
+                    <span className="text-[11px] text-amber-200">Not fully configured</span>
+                  )}
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  {!livekitConnected ? (
+                    <button
+                      type="button"
+                      onClick={connectLivekitRoom}
+                      disabled={
+                        isLivekitConnecting ||
+                        isVoiceRuntimeLoading ||
+                        !voiceRuntimeStatus?.configured ||
+                        !session?.session_id
+                      }
+                      className="btn btn-info px-3 py-2 text-xs"
+                    >
+                      {isLivekitConnecting ? 'Connecting...' : 'Join Voice Room'}
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={disconnectLivekitRoom}
+                      className="btn btn-secondary px-3 py-2 text-xs"
+                    >
+                      Leave Voice Room
+                    </button>
+                  )}
+                  {voiceRuntimeStatus?.livekit_url && (
+                    <span className="text-[11px] text-cyan-100/90 break-all">
+                      {voiceRuntimeStatus.livekit_url}
+                    </span>
+                  )}
+                </div>
+                {livekitError && <p className="mt-2 text-xs text-rose-200">{livekitError}</p>}
               </div>
             )}
 
