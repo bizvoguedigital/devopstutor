@@ -29,6 +29,7 @@ from schemas import (
     AdminTtsProviderStatusResponse, AdminTtsTestRequest, AdminTtsTestResponse,
     ExamProgressUpdateRequest, JourneyContentSyncRequest, JourneyContentSyncResponse,
     JourneyContentSyncJobStartResponse, JourneyContentSyncStatusResponse,
+    VoiceRuntimeStatusResponse, VoiceSessionTokenRequest, VoiceSessionTokenResponse,
     InterviewerV2CvUploadResponse, InterviewerV2JobDescriptionUploadResponse,
     InterviewerV2BlueprintGenerateRequest, InterviewerV2BlueprintResponse,
     InterviewerV2SessionStartRequest, InterviewerV2SessionStartResponse,
@@ -56,6 +57,7 @@ from services.cv_jd_service import cv_jd_service
 from services.interview_orchestrator_service import interview_orchestrator_service
 from services.interview_policy_service import interview_policy_service
 from services.interviewer_v2_session_service import interviewer_v2_session_service
+from services.livekit_service import livekit_service
 import os
 
 # Initialize services
@@ -311,6 +313,41 @@ async def logout_user(request: Request, response: Response, db: AsyncIOMotorData
         await async_auth_service.revoke_refresh_token(db, refresh_token)
     clear_auth_cookies(response)
     return AuthMessage(message="Logged out")
+
+
+@app.get("/api/voice/runtime", response_model=VoiceRuntimeStatusResponse)
+async def get_voice_runtime_status():
+    return VoiceRuntimeStatusResponse(**livekit_service.get_runtime_status())
+
+
+@app.post("/api/voice/livekit/token", response_model=VoiceSessionTokenResponse)
+async def create_livekit_voice_token(
+    payload: VoiceSessionTokenRequest,
+    current_user: Optional[dict] = Depends(get_current_user_optional),
+):
+    try:
+        user_id = current_user.get("user_id") if current_user else None
+        display_name = current_user.get("username") if current_user else "candidate"
+
+        token, room_name, identity, expires_in = livekit_service.issue_session_token(
+            session_id=payload.session_id,
+            user_id=user_id,
+            room_name=payload.room_name,
+            display_name=display_name,
+        )
+
+        return VoiceSessionTokenResponse(
+            provider="livekit",
+            room_name=room_name,
+            identity=identity,
+            token=token,
+            expires_in=expires_in,
+            livekit_url=settings.LIVEKIT_URL,
+        )
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc))
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
 
 @app.post("/api/auth/request-email-verification", response_model=AuthMessage)
 async def request_email_verification(

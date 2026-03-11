@@ -60,6 +60,15 @@ class Settings(BaseSettings):
     MAX_QUESTION_COUNT: int = 10
     SESSION_TIMEOUT: int = 3600  # 1 hour in seconds
 
+    # Voice Agent Runtime (LiveKit migration)
+    VOICE_AGENT_RUNTIME_ENABLED: bool = False
+    VOICE_PROVIDER: str = "livekit"
+    LIVEKIT_URL: str = ""
+    LIVEKIT_API_KEY: str = ""
+    LIVEKIT_API_SECRET: str = ""
+    LIVEKIT_TOKEN_TTL_SECONDS: int = 3600
+    LIVEKIT_ROOM_PREFIX: str = "opsmentorai"
+
     # Storage
     AUDIO_UPLOAD_DIR: str = "./uploads/audio"
     AVATAR_UPLOAD_DIR: str = "./uploads/avatars"

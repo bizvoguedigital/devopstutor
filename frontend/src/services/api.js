@@ -139,6 +139,20 @@ export const apiService = {
     return response.data;
   },
 
+  getVoiceRuntimeStatus: async () => {
+    const response = await api.get('/voice/runtime');
+    return response.data;
+  },
+
+  createLivekitVoiceToken: async (sessionId, roomName = null) => {
+    const payload = {
+      session_id: sessionId,
+      room_name: roomName,
+    };
+    const response = await api.post('/voice/livekit/token', payload);
+    return response.data;
+  },
+
   // ============================================================================
   // LEARNING JOURNEYS
   // ============================================================================

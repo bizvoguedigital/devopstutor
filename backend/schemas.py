@@ -381,6 +381,27 @@ class JourneyContentSyncStatusResponse(BaseModel):
     errors: List[str] = Field(default_factory=list)
 
 
+class VoiceRuntimeStatusResponse(BaseModel):
+    enabled: bool
+    provider: str
+    configured: bool
+    livekit_url: Optional[str] = None
+
+
+class VoiceSessionTokenRequest(BaseModel):
+    session_id: str = Field(..., min_length=3, max_length=128)
+    room_name: Optional[str] = Field(default=None, min_length=3, max_length=128)
+
+
+class VoiceSessionTokenResponse(BaseModel):
+    provider: str
+    room_name: str
+    identity: str
+    token: str
+    expires_in: int
+    livekit_url: str
+
+
 class InterviewerV2CvUploadResponse(BaseModel):
     document_id: str
     filename: str
