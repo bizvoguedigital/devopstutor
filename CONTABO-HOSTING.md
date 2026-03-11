@@ -141,6 +141,58 @@ Minimum setup:
   1. `git checkout <last_good_commit>`
   2. `docker compose up -d --build`
 
+## 13) Budget Reality Check (`$50/month` target)
+
+Yes — `$50/month` can be sufficient for MVP **if** you use an open-source-first stack and keep concurrent voice sessions low.
+
+### Contabo vs DigitalOcean (solo-founder view)
+
+- **Contabo:** generally better raw compute per dollar (best choice for strict `$50` cap)
+- **DigitalOcean:** smoother developer UX/managed add-ons, but less compute headroom at the same budget
+
+### Suggested MVP budget split (target: `$50/month`)
+
+- VPS (app + LiveKit OSS + Mongo + reverse proxy): `$20-35`
+- Backups/object storage: `$5-10`
+- Monitoring/logging essentials: `$0-5`
+- Variable AI API spend (STT/TTS/LLM fallback): `$5-15`
+
+> Practical note: keep at least `$10` buffer for burst usage and unexpected API overages.
+
+### What to self-host vs what to buy (MVP)
+
+- **Self-host (open source):** FastAPI, frontend, MongoDB, LiveKit OSS, Nginx, observability basics
+- **Selective paid usage:** STT/TTS/LLM fallback for quality-critical paths only
+- **Reason:** lowest cash burn while preserving acceptable interview quality
+
+## 14) Upgrade Path (when traction grows)
+
+### Stage A — MVP (`$50/month`, now)
+- Single VPS deployment
+- 1-3 concurrent voice interviews target
+- Nightly backups + basic uptime alerts
+
+### Stage B — Early Growth (`$100-200/month`)
+- Split DB to managed Mongo or separate node
+- Add Redis cache + worker isolation
+- Support 5-15 concurrent voice interviews
+
+### Stage C — Scale (`$250-500+/month`)
+- Dedicated app + media nodes
+- Better autoscaling + regional failover
+- Full observability stack and SLO alerts
+
+## 15) Migration Priority (2-Month MVP)
+
+Set this as **Highest Priority (P0)** in your execution order:
+
+1. Week 1-2: LiveKit OSS foundation + secure token/room service
+2. Week 3-4: Agentic interviewer runtime integration
+3. Week 5-6: Fallback paths + latency/error observability
+4. Week 7-8: Feature-flag rollout and production hardening
+
+This sequence aligns with `ROADMAP.md` P0 migration track and keeps launch risk manageable for a single engineer.
+
 ---
 
 ## Immediate Priority (Contabo)

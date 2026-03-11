@@ -614,7 +614,7 @@ export default function SessionSetupNew({ onSessionStart, onBack, currentUser, o
                   onChange={(event) => setInterviewDurationMinutes(Number(event.target.value))}
                   className="w-full input-base p-3"
                 >
-                  {[15, 20, 30, 45, 60, 75, 90].map((minutes) => (
+                  {[5, 10, 15, 20, 30, 45, 60, 75, 90].map((minutes) => (
                     <option key={minutes} value={minutes}>
                       {minutes} minutes
                     </option>

@@ -16,6 +16,54 @@
 
 ## 📋 FEATURE ROADMAP
 
+### 🚨 **NEW TOP PRIORITY (P0) — 8-Week MVP Voice Migration**
+
+> Goal: ship MVP in 2 months using an open-source-first, budget-constrained architecture.
+
+**Story P0.0: Agentic Voice Runtime Migration (Groq → LiveKit-based realtime stack)**
+- **Priority:** P0 (Critical, Highest)
+- **Owner Constraint:** Single engineer, budget cap `~$50/month`
+- **Status:** 🟡 Planned for immediate execution
+- **Effort:** 21 story points
+- **Target Window:** 8 weeks
+- **Decision:** Use **LiveKit OSS** as realtime transport/orchestration base; keep existing backend scoring + session persistence; keep Groq for non-realtime reasoning during MVP.
+
+**Scope (MVP):**
+- Realtime interview room with mic + speaker controls
+- Agent-driven interviewer turn-taking (ask, listen, follow-up, timebox)
+- Streaming transcript persisted to existing session artifacts
+- Fallback to current text mode when realtime path is degraded
+- Feature flag rollout (`voice_agent_runtime_enabled`)
+
+**Out of Scope (Post-MVP):**
+- Multi-agent panel interviews
+- Emotion/biometric analysis
+- Enterprise SSO-only voice access controls
+
+**8-Week Execution Plan**
+- **Week 1-2: Foundation**
+  - Stand up LiveKit OSS, token service, and secured room creation
+  - Add frontend voice session handshake + reconnect handling
+  - Define transport events and transcript contract
+- **Week 3-4: Agent Runtime Integration**
+  - Implement interviewer state machine (question, probe, close loop)
+  - Add guardrails for strict interview mode + refusal templates
+  - Persist turn telemetry and transcript chunks to current Mongo schema
+- **Week 5-6: Quality + Fallbacks**
+  - Add provider fallback strategy for STT/TTS/LLM
+  - Build latency/error dashboards and alert thresholds
+  - Run internal load and failure-recovery tests
+- **Week 7-8: MVP Hardening + Launch**
+  - Controlled rollout by feature flag
+  - Tune prompts/rubrics on real sessions
+  - Freeze API contract and publish migration runbook
+
+**MVP Success Gates (must hit before launch):**
+- p95 voice turn latency < 4.5s
+- interview completion rate >= 80%
+- realtime path error rate < 2%
+- fallback-to-text success >= 99%
+
 ### 🔥 **HIGH PRIORITY - PRODUCTION ESSENTIALS**
 
 #### **EPIC 1: Authentication & User Management**
@@ -437,28 +485,27 @@
 ## 📝 **IMPLEMENTATION NOTES**
 
 **Next Immediate Steps:**
-1. Set up production database and hosting infrastructure
-2. Implement user authentication system
-3. Add comprehensive error handling and logging
-4. Create automated testing suite
-5. Set up monitoring and analytics
+1. Start Story P0.0 (8-week agentic voice migration) as highest-priority MVP track
+2. Lock cost-constrained infra baseline (Contabo preferred under $50 budget)
+3. Add realtime observability and fallback metrics to launch checklist
+4. Complete auth hardening tasks and deployment automation
+5. Run closed beta and release with feature flags
 
 **Resources Required:**
-- 2-3 Full-stack developers
-- 1 DevOps engineer
-- 1 UI/UX designer  
-- 1 Product manager
-- Cloud hosting budget (~$200-500/month initially)
+- 1 full-stack/principal engineer (current)
+- Optional part-time design support (as needed)
+- Optional part-time QA support during launch week
+- Cloud + AI budget target (~$50/month for MVP), scale post-traction
 
 **Timeline Estimate:**
-- **Phase 1 (Production Ready):** 3-4 months
-- **Phase 2 (Feature Complete):** 6-8 months  
-- **Phase 3 (Enterprise Ready):** 10-12 months
+- **Phase 0 (MVP voice migration):** 2 months
+- **Phase 1 (Stability + growth):** 3-4 months
+- **Phase 2 (Enterprise readiness):** 6-9 months
 
 ---
 
 *This roadmap is a living document and should be updated regularly based on user feedback, market conditions, and technical discoveries.*
 
-**Document Version:** 1.0  
-**Last Updated:** February 15, 2026  
-**Next Review:** March 15, 2026
+**Document Version:** 1.1  
+**Last Updated:** March 11, 2026  
+**Next Review:** April 01, 2026
