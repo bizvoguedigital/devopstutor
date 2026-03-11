@@ -425,7 +425,7 @@ class InterviewerV2JobDescriptionUploadResponse(BaseModel):
 class InterviewerV2BlueprintGenerateRequest(BaseModel):
     cv_document_id: str = Field(..., min_length=6, max_length=128)
     jd_document_id: str = Field(..., min_length=6, max_length=128)
-    target_duration_minutes: int = Field(default=30, ge=15, le=90)
+    target_duration_minutes: int = Field(default=30, ge=5, le=90)
     strict_mode: bool = True
 
 
