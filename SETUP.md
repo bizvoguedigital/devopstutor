@@ -218,6 +218,34 @@ You should see output like:
 
 ## Troubleshooting
 
+### Pre-Push Validation (Recommended)
+
+Before pushing to `main`, run the standard validation script from the repository root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\prepush-check.ps1
+```
+
+```bash
+bash ./scripts/prepush-check.sh
+```
+
+What it runs:
+- backend test suite (`docker compose exec backend pytest -q`)
+- frontend production build (`npm run build`)
+
+Optional flags:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\prepush-check.ps1 -SkipBackendTests
+powershell -ExecutionPolicy Bypass -File .\scripts\prepush-check.ps1 -SkipFrontendBuild
+```
+
+```bash
+bash ./scripts/prepush-check.sh --skip-backend-tests
+bash ./scripts/prepush-check.sh --skip-frontend-build
+```
+
 ### Issue: PowerShell Execution Policy Error (Windows)
 
 **Error message:**

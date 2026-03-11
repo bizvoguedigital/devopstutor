@@ -100,7 +100,31 @@ powershell -ExecutionPolicy Bypass -File .\scripts\smoke_interviewer_v2.ps1 -Bas
 
 For full details and expected output, see `QUICKSTART.md` under **Interviewer-v2 API Smoke Test (CV + JD + Blueprint)**.
 
-### 6. Run Backend Unit + Integration Tests
+### 6. Run Pre-Push Validation (Recommended)
+
+Run the project pre-push script (backend tests + frontend production build):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\prepush-check.ps1
+```
+
+```bash
+bash ./scripts/prepush-check.sh
+```
+
+Optional flags:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\prepush-check.ps1 -SkipBackendTests
+powershell -ExecutionPolicy Bypass -File .\scripts\prepush-check.ps1 -SkipFrontendBuild
+```
+
+```bash
+bash ./scripts/prepush-check.sh --skip-backend-tests
+bash ./scripts/prepush-check.sh --skip-frontend-build
+```
+
+### 7. Run Backend Unit + Integration Tests (Manual)
 
 ```powershell
 & "C:\Users\bonito\Documents\BoniAI\.venv\Scripts\python.exe" -m pytest .\backend\tests\test_auth_unit.py -q

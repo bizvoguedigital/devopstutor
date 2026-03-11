@@ -89,7 +89,31 @@ This script validates:
 - session completion
 - final summary fields (including `turn_reviews`)
 
-### Backend Unit + Integration Tests
+### Pre-Push Validation (Recommended)
+
+Run all required checks before pushing:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\prepush-check.ps1
+```
+
+```bash
+bash ./scripts/prepush-check.sh
+```
+
+Optional flags:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\prepush-check.ps1 -SkipBackendTests
+powershell -ExecutionPolicy Bypass -File .\scripts\prepush-check.ps1 -SkipFrontendBuild
+```
+
+```bash
+bash ./scripts/prepush-check.sh --skip-backend-tests
+bash ./scripts/prepush-check.sh --skip-frontend-build
+```
+
+### Backend Unit + Integration Tests (Manual)
 
 ```powershell
 & "C:\Users\bonito\Documents\BoniAI\.venv\Scripts\python.exe" -m pytest .\backend\tests\test_auth_unit.py -q
